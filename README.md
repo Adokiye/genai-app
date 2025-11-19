@@ -14,6 +14,13 @@ The interface uses the Next.js App Router along with TanStack Query so that fetc
 ## LLM scoring heuristics
 The API evaluates each completion with five heuristics: length efficiency (response length vs an adaptive target), coverage (prompt keyword overlap), richness (type token ratio), structure (multiline organization), and clarity (sentence length variance). A weighted blend (twenty five percent length, twenty five percent coverage, twenty percent richness, fifteen percent structure, fifteen percent clarity) becomes the overall score that the UI highlights.
 
+### Extended documentation
+Need the deeper story behind the architecture, design system, or deployment approach? The `/docs` folder contains living references:
+- [`docs/architecture.md`](docs/architecture.md) — workspace overview, request lifecycle, and component inventory.
+- [`docs/ui-ux.md`](docs/ui-ux.md) — palette choices, layout rationale, and the intended user journey.
+- [`docs/quality-metrics.md`](docs/quality-metrics.md) — formulas, examples, and limitations behind each heuristic.
+- [`docs/deployment.md`](docs/deployment.md) — hosting strategy, environment variables, time estimates, and explicit assumptions.
+
 ## API endpoints you can rely on
 1. GET /health: confirms the service is responsive and notes version information from `AppService`.
 2. GET /experiments: returns the persisted experiment list ordered from newest to oldest.
