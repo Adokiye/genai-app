@@ -26,6 +26,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   try {
     return JSON.parse(responseText) as T;
   } catch (error) {
+    console.error('Invalid JSON response from API', error);
     throw new Error('Invalid JSON response');
   }
 }

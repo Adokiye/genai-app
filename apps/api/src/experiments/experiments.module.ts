@@ -7,6 +7,11 @@ import { MetricsService } from './metrics.service';
 
 @Module({
   controllers: [ExperimentsController],
-  providers: [ExperimentsService, ExperimentRepository, LlmService, MetricsService],
+  providers: [
+    ExperimentsService,
+    ExperimentRepository,
+    LlmService,
+    MetricsService,
+  ],
 })
 export class ExperimentsModule {}

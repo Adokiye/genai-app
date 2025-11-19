@@ -11,6 +11,8 @@
 | `NEXT_PUBLIC_API_URL` | Web | Absolute URL to the deployed API (e.g., `https://api.genai-labs.example.com`). |
 | `WEB_APP_URL` | API | Origin allowed by CORS so the browser can call the Nest endpoints. |
 | `PORT` | API | Overrides the default 3010 port; most platforms inject this automatically. |
+| `OPENAI_API_KEY` | API | Secret used by `LlmService` to authenticate with OpenAI. Required for all experiment runs. |
+| `OPENAI_MODEL` | API | Optional override (defaults to `gpt-4o-mini`) if you want to target a different OpenAI model. |
 | `NODE_ENV` | Both | Standard runtime toggle for dev/prod configuration. |
 
 ## Time estimates recap
@@ -29,7 +31,7 @@ The CSV at the repository root (`time_estimates.csv`) captures both planned and 
 **Total:** estimated 14.5 hours vs. 12.7 actual.
 
 ## Assumptions
-1. **LLM provider**: The mock `LlmService` is sufficient for experimentation; no external API keys are required for demo mode. Swapping in OpenAI or Anthropic later should happen behind the same service interface.
+1. **LLM provider**: OpenAI powers every experiment. Supplying `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`) is mandatory in every environment.
 2. **Data privacy**: Experiments only live in `experiments.json`. Users accept that clearing the file resets history and that no PII leaves the workspace.
 3. **Traffic profile**: The current architecture targets small lab teams (single-digit concurrent users). File I/O and in-memory sorting suffice; migrating to a database (e.g., Postgres) becomes necessary only if concurrency or storage requirements grow.
 4. **Browser support**: Modern evergreen browsers (Chromium, Firefox, Safari) are assumed. Legacy IE/EdgeHTML builds are not tested because the UI depends on CSS features such as logical properties and container-based spacing.
