@@ -1,15 +1,16 @@
 # GenAI Labs Experiment Console
 
 ## A welcoming overview
-GenAI Labs is a playground for people who love to see how prompt tweaking actually shapes language model behavior. The project bundles a Next.js interface and a NestJS application into one pnpm workspace so that writers, researchers, and engineers can share a single experiment log, compare generated drafts, and export JSON archives for later study. Everything is tuned toward clarity: the UI highlights the best responses, the metrics explain why a variant wins, and the API is deterministic so you can trust every repeated run.
+GenAI Labs is a playground for people who love to see how prompt tweaking actually shapes language model behavior. The project bundles a Next.js interface and a NestJS application into one pnpm workspace so that writers, researchers, and engineers can share a single experiment log, compare generated drafts, and export JSON archives for later study. Everything is tuned toward clarity: the UI highlights the best responses, the metrics explain why a variant wins, and the API keeps a persistent record so you can trace exactly which OpenAI parameters produced each output.
 
 ## How everything works together
-The interface uses the Next.js App Router along with TanStack Query so that fetching, caching, and optimistic updates happen automatically. Every experiment request calls into the NestJS service, which synthesizes completions with a playful mock LLM that reacts to temperature and top_p settings. As soon as the API scores the completions, it writes the record to a JSON file, which means your entire lab notebook lives in version control and can be exported in one click from the browser.
+The interface uses the Next.js App Router along with TanStack Query so that fetching, caching, and optimistic updates happen automatically. Every experiment request calls into the NestJS service, which relays the prompt to OpenAI's Chat Completions API (defaulting to `gpt-4o-mini`) using the requested temperature and top_p grid. When an API key is absent the service automatically swaps in a deterministic mock responder so offline demos remain possible. As soon as the API scores the completions, it writes the record to a JSON file, which means your entire lab notebook lives in version control and can be exported in one click from the browser.
 
 ## Running the lab locally
 1. Install workspace dependencies with `pnpm install` at the repository root.
-2. Launch the NestJS API with `pnpm --filter api start:dev`. It listens on port 3010 unless you override `PORT`.
-3. In another terminal start the Next.js client with `pnpm --filter web dev`. Point `NEXT_PUBLIC_API_URL` to the API origin if you customize ports. The API also observes `WEB_APP_URL` for CORS.
+2. Create an `.env` file for the API that defines `OPENAI_API_KEY=<your key>` (and optionally `OPENAI_MODEL=gpt-4o-mini`).
+3. Launch the NestJS API with `pnpm --filter api start:dev`. It listens on port 3010 unless you override `PORT`.
+4. In another terminal start the Next.js client with `pnpm --filter web dev`. Point `NEXT_PUBLIC_API_URL` to the API origin if you customize ports. The API also observes `WEB_APP_URL` for CORS.
 
 ## LLM scoring heuristics
 The API evaluates each completion with five heuristics: length efficiency (response length vs an adaptive target), coverage (prompt keyword overlap), richness (type token ratio), structure (multiline organization), and clarity (sentence length variance). A weighted blend (twenty five percent length, twenty five percent coverage, twenty percent richness, fifteen percent structure, fifteen percent clarity) becomes the overall score that the UI highlights.
@@ -150,19 +151,19 @@ Root module wiring together controllers and providers, including the experiments
 Unit test confirming that the `/health` endpoint behaves as expected and that dependency injection is wired correctly.
 
 ### apps/api/src/experiments/experiments.module.ts
-Nest module dedicated to experiment handling. It registers the controller, service, repository, metrics service, and mock LLM service.
+Nest module dedicated to experiment handling. It registers the controller, service, repository, metrics service, and the OpenAI-backed LLM service.
 
 ### apps/api/src/experiments/experiments.controller.ts
 Defines the REST endpoints for listing, fetching, creating, and deleting experiments. It delegates business logic to the service layer.
 
 ### apps/api/src/experiments/experiments.service.ts
-Orchestrates experiment creation. It talks to the mock LLM, metrics service, and repository, ensuring each request produces consistent completions and scoring data.
+Orchestrates experiment creation. It loops over every parameter combination, asks the OpenAI LLM service for completions, feeds them into the metrics service, and persists the scored results.
 
 ### apps/api/src/experiments/experiment.repository.ts
 Simple file based persistence utility. It reads and writes `experiments.json`, handles ID generation, and guarantees newest first ordering.
 
 ### apps/api/src/experiments/llm.service.ts
-Mock LLM generator that fabricates completions. It varies tone, structure, and keyword usage according to temperature and top_p values so that the UI can display meaningful differences without hitting external APIs.
+Thin wrapper around OpenAI's Chat Completions API. It injects the user prompt plus additional guidance, forwards the requested temperature/top_p/max token values, and returns the streamed markdown text for scoring. If `OPENAI_API_KEY` is not configured it falls back to a structured mock responder so the workflow keeps functioning.
 
 ### apps/api/src/experiments/metrics.service.ts
 Evaluates completions with the heuristics outlined earlier. It returns both numeric scores and plain language explanations so the UI can surface insights.

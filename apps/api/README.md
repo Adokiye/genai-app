@@ -1,73 +1,41 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# GenAI Labs API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+NestJS service that powers the LLM Lab experience. It accepts experiment payloads, fans out
+parameter combinations to OpenAI, scores each completion with deterministic heuristics, and
+persists the results to `data/experiments.json` for auditing and export.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Environment variables
+| Variable | Required | Description |
+| --- | --- | --- |
+| `PORT` | No | Port to bind the HTTP server (defaults to `3010`). |
+| `WEB_APP_URL` | No | Origin allowed by CORS so the Next.js client can call the API. |
+| `OPENAI_API_KEY` | No | Secret used by `LlmService` to call OpenAI's Chat Completions endpoint. When omitted, a deterministic mock responder is used. |
+| `OPENAI_MODEL` | No | Override the model (defaults to `gpt-4o-mini`). |
 
-## Description
+Add `OPENAI_API_KEY=<your key>` to unlock real completions; otherwise the API falls back to the built-in mock generator so demos can run without credentials.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
+## Scripts
 ```bash
-$ npm install
+pnpm --filter api start:dev   # watch mode with live reload
+pnpm --filter api start       # production build (use NODE_ENV=production)
+pnpm --filter api lint        # lint the TypeScript sources
 ```
 
-## Running the app
+## Key modules
+- `experiments.controller.ts` — exposes `GET/POST/DELETE /experiments` endpoints.
+- `experiments.service.ts` — expands parameter grids, orchestrates OpenAI calls, and stores scored responses.
+- `llm.service.ts` — wraps the OpenAI Chat Completions API and injects consistent instructions.
+- `metrics.service.ts` — computes coverage, richness, length efficiency, structure, clarity, and reading time.
+- `experiment.repository.ts` — file-based persistence for the experiment history.
 
-```bash
-# development
-$ npm run start
+## Data persistence
+The repository writes every experiment to `data/experiments.json`. Mount a persistent volume
+(or commit seed data) if you want history to survive deployments.
 
-# watch mode
-$ npm run start:dev
+## Error handling
+The API surfaces descriptive 4xx/5xx messages when:
+- The prompt or numeric ranges are invalid (`400`).
+- OpenAI rejects a request (`500`).
+- A caller requests an experiment ID that does not exist (`404`).
 
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Pair this service with the Next.js frontend by setting `NEXT_PUBLIC_API_URL` to the deployed API URL.
