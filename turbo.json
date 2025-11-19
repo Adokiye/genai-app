@@ -1,9 +1,15 @@
 {
   "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [
+        "apps/**/.next/**",
+        "apps/**/dist/**"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "build": {}
+    }
   }
 }
