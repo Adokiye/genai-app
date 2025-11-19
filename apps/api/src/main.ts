@@ -4,11 +4,15 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  const allowedOrigin = process.env.WEB_APP_URL ?? 'http://localhost:3000';
+
   app.enableCors({
-    origin: ['http://localhost:5173'], // React dev server
+    origin: allowedOrigin,
     credentials: true,
   });
 
-  await app.listen(3000);
+  const port = process.env.PORT ?? 3010;
+  await app.listen(port);
+  console.log(`API listening on port ${port}`);
 }
 bootstrap();

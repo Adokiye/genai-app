@@ -1,0 +1,7 @@
+Task,Description,EstimatedHours,ActualHours,Notes
+Planning & architecture,Roadmap design plus CSV prep,1.0,1.2,Included spec review + IA sketches
+Backend experiment API,LLM proxy/mocked generation + metrics + persistence,3.0,2.3,Nest module with storage + heuristics
+Frontend visual lab,Layout, typography, dashboards,2.5,2.1,Satoshi-branded hero/header plus cards
+Experiment workflow,Parameter controls, response comparison UX,3.5,2.4,Includes TanStack Query wiring + export interactions
+Persistence & export,Local storage handling and CSV/JSON export,1.5,1.0,File repo + client-side download utilities
+Docs & polish,README, video outline, deployment configs,2.0,0.8,README + accessibility passes

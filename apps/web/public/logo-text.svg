@@ -1,0 +1,6 @@
+<svg width="220" height="48" viewBox="0 0 220 48" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>GenAI Labs logotype</title>
+  <rect width="220" height="48" rx="12" fill="white"/>
+  <text x="16" y="32" font-family="'Satoshi','Helvetica Neue',sans-serif" font-size="28" font-weight="700" fill="#111827">GenAI</text>
+  <text x="120" y="32" font-family="'Satoshi','Helvetica Neue',sans-serif" font-size="28" font-weight="500" fill="#3C5CCC">.Labs</text>
+</svg>
