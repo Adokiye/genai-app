@@ -1,0 +1,45 @@
+# Root ignores
+node_modules/
+pnpm-lock.yaml
+
+# Environment files
+.env
+*.env
+
+# Turborepo
+.turbo/
+turbo.log
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+*.log
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# macOS files
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Cache
+*.tsbuildinfo
+.cache/
+temp/
+
+# Nested apps
+apps/*/node_modules/
+apps/*/dist/
+apps/*/build/
+
+packages/*/node_modules/
+packages/*/dist/
