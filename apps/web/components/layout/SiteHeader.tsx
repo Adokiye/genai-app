@@ -6,7 +6,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-4">
           <Image src="/logo-brain.svg" alt="GenAI Labs brain" width={48} height={48} />
-          <div>
+          <div className="flex flex-col justify-center">
             <Image src="/logo-text.svg" alt="GenAI Labs" width={160} height={32} />
             <p className="text-sm text-slate-500">
               Parameter playground for thoughtful LLM experimentation
