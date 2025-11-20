@@ -1,248 +1,383 @@
 [
   {
-    "id": "7A0dSodVzxQj",
-    "prompt": "Demo prompt about LLM evaluation",
-    "createdAt": "2025-11-19T10:58:48.788Z",
+    "id": "84b75SgEKbjp",
+    "prompt": "be a good boy",
+    "createdAt": "2025-11-20T19:25:47.019Z",
     "temperatures": [
       0.2,
-      0.4,
-      0.6
+      0.5,
+      0.8
     ],
     "topPs": [
       0.7,
+      0.85,
       1
     ],
-    "variantsPerCombo": 2,
+    "variantsPerCombo": 1,
     "maxTokens": 260,
-    "summary": "Best overall score 89.0% using T=0.60, top_p=0.70. Average quality 88.1%.",
+    "summary": "Best overall score 66.8% using T=0.80, top_p=0.85. Average quality 64.3%.",
     "responses": [
       {
-        "id": "2MGbioZjE1",
+        "id": "RCdS7Rp3_4",
         "parameters": {
-          "temperature": 0.6,
+          "temperature": 0.8,
+          "topP": 0.85,
+          "maxTokens": 260
+        },
+        "text": "Using a technical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Situation:** Embraces ultra-focused thinking to prototype broad future-looking narratives while it references the underlying user intent directly.\n- **Complications:** Embraces ultra-focused thinking to monitor broad future-looking narratives while it identifies supporting signals and guardrails.\n- **Resolutions:** Embraces systems level thinking to monitor broad future-looking narratives while it flags ambiguity so humans can intervene early.\n\nCreative mode emphasizes speculative but vivid ideas to stretch the solution space.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.694,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.859,
+          "overall": 0.668,
+          "readingTimeSeconds": 28.3
+        },
+        "analysis": "Balances imaginative reasoning with structured formatting. Coverage 0% and vocab richness 69%."
+      },
+      {
+        "id": "L92hROkDqh",
+        "parameters": {
+          "temperature": 0.8,
+          "topP": 1,
+          "maxTokens": 260
+        },
+        "text": "Using a technical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Overview:** Embraces ultra-focused thinking to amplify broad future-looking narratives while it references the underlying user intent directly.\n- **Signals:** Embraces ultra-focused thinking to stress test broad future-looking narratives while it identifies supporting signals and guardrails.\n- **Opportunities:** Embraces systems level thinking to prototype broad future-looking narratives while it flags ambiguity so humans can intervene early.\n- **Overview:** Embraces data-backed thinking to monitor broad future-looking narratives while it connects tactical steps to measurable outcomes.\n\nCreative mode emphasizes speculative but vivid ideas to stretch the solution space.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.648,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.873,
+          "overall": 0.661,
+          "readingTimeSeconds": 35
+        },
+        "analysis": "Balances imaginative reasoning with structured formatting. Coverage 0% and vocab richness 65%."
+      },
+      {
+        "id": "zwnUaBVDsI",
+        "parameters": {
+          "temperature": 0.8,
           "topP": 0.7,
           "maxTokens": 260
         },
-        "text": "Using a playful tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Context:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces systems level thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a technical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Key takeaways:** Embraces ultra-focused thinking to monitor broad future-looking narratives while it references the underlying user intent directly.\n- **Risks to watch:** Embraces ultra-focused thinking to monitor broad future-looking narratives while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces systems level thinking to simplify broad future-looking narratives while it flags ambiguity so humans can intervene early.\n\nCreative mode emphasizes speculative but vivid ideas to stretch the solution space.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.714,
-          "coverage": 1,
+          "richness": 0.697,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.648,
-          "overall": 0.89,
-          "readingTimeSeconds": 28
+          "clarity": 0.803,
+          "overall": 0.66,
+          "readingTimeSeconds": 29.7
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 71%."
+        "analysis": "Balances imaginative reasoning with structured formatting. Coverage 0% and vocab richness 70%."
       },
       {
-        "id": "0FSWumDlSm",
+        "id": "qCyDAY5BLp",
+        "parameters": {
+          "temperature": 0.5,
+          "topP": 0.85,
+          "maxTokens": 260
+        },
+        "text": "Using a critical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Context:** Embraces risk-aware thinking to sequence tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces human-centered thinking to amplify tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces human-centered thinking to amplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.695,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.691,
+          "overall": 0.643,
+          "readingTimeSeconds": 27.3
+        },
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 70%."
+      },
+      {
+        "id": "7fqelLXe4i",
         "parameters": {
           "temperature": 0.2,
           "topP": 0.7,
           "maxTokens": 260
         },
-        "text": "Using a measured tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Context:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces ultra-focused thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a measured tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Situation:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it references the underlying user intent directly.\n- **Complications:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Resolutions:** Embraces ultra-focused thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.675,
-          "coverage": 1,
+          "richness": 0.671,
+          "coverage": 0,
           "structure": 1,
           "clarity": 0.691,
-          "overall": 0.889,
-          "readingTimeSeconds": 27.7
+          "overall": 0.638,
+          "readingTimeSeconds": 27.3
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 68%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 67%."
       },
       {
-        "id": "XbBy6OUQba",
+        "id": "8b7BU9hGdS",
         "parameters": {
-          "temperature": 0.4,
-          "topP": 0.7,
-          "maxTokens": 260
-        },
-        "text": "Using a critical tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Context:** Embraces data-backed thinking to sequence tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces data-backed thinking to sequence tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces data-backed thinking to amplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
-        "metrics": {
-          "lengthEfficiency": 1,
-          "richness": 0.675,
-          "coverage": 1,
-          "structure": 1,
-          "clarity": 0.691,
-          "overall": 0.889,
-          "readingTimeSeconds": 27.7
-        },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 68%."
-      },
-      {
-        "id": "xi6NdgKSZs",
-        "parameters": {
-          "temperature": 0.6,
-          "topP": 0.7,
-          "maxTokens": 260
-        },
-        "text": "Using a playful tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Overview:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Signals:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Opportunities:** Embraces systems level thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
-        "metrics": {
-          "lengthEfficiency": 1,
-          "richness": 0.702,
-          "coverage": 1,
-          "structure": 1,
-          "clarity": 0.648,
-          "overall": 0.888,
-          "readingTimeSeconds": 28
-        },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 70%."
-      },
-      {
-        "id": "Z5WazVNpMI",
-        "parameters": {
-          "temperature": 0.4,
+          "temperature": 0.2,
           "topP": 1,
           "maxTokens": 260
         },
-        "text": "Using a critical tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Context:** Embraces data-backed thinking to prototype tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces data-backed thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces data-backed thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Context:** Embraces story-driven thinking to sequence tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a measured tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Context:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces ultra-focused thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Context:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.618,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.713,
+          "overall": 0.631,
+          "readingTimeSeconds": 34
+        },
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 62%."
+      },
+      {
+        "id": "Z7od_FWdx9",
+        "parameters": {
+          "temperature": 0.5,
+          "topP": 0.7,
+          "maxTokens": 260
+        },
+        "text": "Using a critical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Key takeaways:** Embraces story-driven thinking to monitor tightly scoped execution details while it references the underlying user intent directly.\n- **Risks to watch:** Embraces story-driven thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces risk-aware thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.698,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.605,
+          "overall": 0.63,
+          "readingTimeSeconds": 28.7
+        },
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 70%."
+      },
+      {
+        "id": "a4e-vlStoF",
+        "parameters": {
+          "temperature": 0.5,
+          "topP": 1,
+          "maxTokens": 260
+        },
+        "text": "Using a critical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Situation:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Complications:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Resolutions:** Embraces systems level thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Situation:** Embraces systems level thinking to monitor tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
           "richness": 0.637,
-          "coverage": 1,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.727,
-          "overall": 0.886,
+          "clarity": 0.676,
+          "overall": 0.629,
           "readingTimeSeconds": 34
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 64%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 64%."
       },
       {
-        "id": "nfPCK08Y2r",
+        "id": "7E1GdPlT7D",
         "parameters": {
-          "temperature": 0.4,
+          "temperature": 0.2,
+          "topP": 0.85,
+          "maxTokens": 260
+        },
+        "text": "Using a measured tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Key takeaways:** Embraces story-driven thinking to prototype tightly scoped execution details while it references the underlying user intent directly.\n- **Risks to watch:** Embraces story-driven thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces story-driven thinking to monitor tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.674,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.605,
+          "overall": 0.626,
+          "readingTimeSeconds": 28.7
+        },
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 67%."
+      }
+    ]
+  },
+  {
+    "id": "dKJrM9fZTMFg",
+    "prompt": "be a good boy",
+    "createdAt": "2025-11-20T19:25:44.155Z",
+    "temperatures": [
+      0.2,
+      0.5,
+      0.8
+    ],
+    "topPs": [
+      0.7,
+      0.85,
+      1
+    ],
+    "variantsPerCombo": 1,
+    "maxTokens": 260,
+    "summary": "Best overall score 66.8% using T=0.80, top_p=0.85. Average quality 64.6%.",
+    "responses": [
+      {
+        "id": "XJxHNCpKeH",
+        "parameters": {
+          "temperature": 0.8,
+          "topP": 0.85,
+          "maxTokens": 260
+        },
+        "text": "Using a technical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Situation:** Embraces ultra-focused thinking to prototype broad future-looking narratives while it references the underlying user intent directly.\n- **Complications:** Embraces ultra-focused thinking to monitor broad future-looking narratives while it identifies supporting signals and guardrails.\n- **Resolutions:** Embraces systems level thinking to monitor broad future-looking narratives while it flags ambiguity so humans can intervene early.\n\nCreative mode emphasizes speculative but vivid ideas to stretch the solution space.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.694,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.859,
+          "overall": 0.668,
+          "readingTimeSeconds": 28.3
+        },
+        "analysis": "Balances imaginative reasoning with structured formatting. Coverage 0% and vocab richness 69%."
+      },
+      {
+        "id": "M4yHGffGQE",
+        "parameters": {
+          "temperature": 0.8,
+          "topP": 0.7,
+          "maxTokens": 260
+        },
+        "text": "Using a technical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Overview:** Embraces ultra-focused thinking to monitor broad future-looking narratives while it references the underlying user intent directly.\n- **Signals:** Embraces ultra-focused thinking to monitor broad future-looking narratives while it identifies supporting signals and guardrails.\n- **Opportunities:** Embraces systems level thinking to simplify broad future-looking narratives while it flags ambiguity so humans can intervene early.\n\nCreative mode emphasizes speculative but vivid ideas to stretch the solution space.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.682,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.859,
+          "overall": 0.665,
+          "readingTimeSeconds": 28.3
+        },
+        "analysis": "Balances imaginative reasoning with structured formatting. Coverage 0% and vocab richness 68%."
+      },
+      {
+        "id": "H3qOVChlU3",
+        "parameters": {
+          "temperature": 0.8,
           "topP": 1,
           "maxTokens": 260
         },
-        "text": "Using a critical tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Overview:** Embraces data-backed thinking to prototype tightly scoped execution details while it references the underlying user intent directly.\n- **Signals:** Embraces data-backed thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Opportunities:** Embraces data-backed thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Overview:** Embraces story-driven thinking to sequence tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a technical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Context:** Embraces ultra-focused thinking to amplify broad future-looking narratives while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to stress test broad future-looking narratives while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces systems level thinking to prototype broad future-looking narratives while it flags ambiguity so humans can intervene early.\n- **Context:** Embraces data-backed thinking to monitor broad future-looking narratives while it connects tactical steps to measurable outcomes.\n\nCreative mode emphasizes speculative but vivid ideas to stretch the solution space.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.627,
-          "coverage": 1,
+          "richness": 0.657,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.727,
-          "overall": 0.884,
-          "readingTimeSeconds": 34
+          "clarity": 0.873,
+          "overall": 0.662,
+          "readingTimeSeconds": 35
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 63%."
+        "analysis": "Balances imaginative reasoning with structured formatting. Coverage 0% and vocab richness 66%."
       },
       {
-        "id": "-ppseAYrsZ",
+        "id": "VC72KtVSOZ",
         "parameters": {
-          "temperature": 0.6,
-          "topP": 1,
+          "temperature": 0.5,
+          "topP": 0.85,
           "maxTokens": 260
         },
-        "text": "Using a playful tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Context:** Embraces ultra-focused thinking to simplify tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to sequence tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces systems level thinking to amplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Context:** Embraces systems level thinking to stress test tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a critical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Situation:** Embraces risk-aware thinking to sequence tightly scoped execution details while it references the underlying user intent directly.\n- **Complications:** Embraces human-centered thinking to amplify tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Resolutions:** Embraces human-centered thinking to amplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.641,
-          "coverage": 1,
+          "richness": 0.695,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.668,
-          "overall": 0.878,
-          "readingTimeSeconds": 34.3
+          "clarity": 0.691,
+          "overall": 0.643,
+          "readingTimeSeconds": 27.3
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 64%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 70%."
       },
       {
-        "id": "6Z4753bhqF",
+        "id": "iuoEykmOMm",
+        "parameters": {
+          "temperature": 0.5,
+          "topP": 0.7,
+          "maxTokens": 260
+        },
+        "text": "Using a critical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Overview:** Embraces story-driven thinking to monitor tightly scoped execution details while it references the underlying user intent directly.\n- **Signals:** Embraces story-driven thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Opportunities:** Embraces risk-aware thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "metrics": {
+          "lengthEfficiency": 1,
+          "richness": 0.683,
+          "coverage": 0,
+          "structure": 1,
+          "clarity": 0.691,
+          "overall": 0.64,
+          "readingTimeSeconds": 27.3
+        },
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 68%."
+      },
+      {
+        "id": "YOFh4ExPnJ",
         "parameters": {
           "temperature": 0.2,
           "topP": 0.7,
           "maxTokens": 260
         },
-        "text": "Using a measured tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Key takeaways:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it references the underlying user intent directly.\n- **Risks to watch:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces ultra-focused thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a measured tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Context:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces ultra-focused thinking to simplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.678,
-          "coverage": 1,
+          "richness": 0.671,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.611,
-          "overall": 0.877,
-          "readingTimeSeconds": 29
+          "clarity": 0.691,
+          "overall": 0.638,
+          "readingTimeSeconds": 27.3
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 68%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 67%."
       },
       {
-        "id": "1XRMB8OAwL",
+        "id": "_wBcpewpFs",
         "parameters": {
-          "temperature": 0.4,
-          "topP": 0.7,
+          "temperature": 0.2,
+          "topP": 0.85,
           "maxTokens": 260
         },
-        "text": "Using a critical tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Key takeaways:** Embraces data-backed thinking to sequence tightly scoped execution details while it references the underlying user intent directly.\n- **Risks to watch:** Embraces data-backed thinking to sequence tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces data-backed thinking to amplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a measured tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Context:** Embraces story-driven thinking to prototype tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces story-driven thinking to monitor tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces story-driven thinking to monitor tightly scoped execution details while it flags ambiguity so humans can intervene early.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.678,
-          "coverage": 1,
+          "richness": 0.671,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.611,
-          "overall": 0.877,
-          "readingTimeSeconds": 29
+          "clarity": 0.691,
+          "overall": 0.638,
+          "readingTimeSeconds": 27.3
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 68%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 67%."
       },
       {
-        "id": "BS6_KSOtBF",
-        "parameters": {
-          "temperature": 0.6,
-          "topP": 1,
-          "maxTokens": 260
-        },
-        "text": "Using a playful tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Overview:** Embraces ultra-focused thinking to simplify tightly scoped execution details while it references the underlying user intent directly.\n- **Signals:** Embraces ultra-focused thinking to sequence tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Opportunities:** Embraces systems level thinking to amplify tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Overview:** Embraces systems level thinking to stress test tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
-        "metrics": {
-          "lengthEfficiency": 1,
-          "richness": 0.631,
-          "coverage": 1,
-          "structure": 1,
-          "clarity": 0.668,
-          "overall": 0.876,
-          "readingTimeSeconds": 34.3
-        },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 63%."
-      },
-      {
-        "id": "qg91wpt6J9",
+        "id": "owhSHV0ZKx",
         "parameters": {
           "temperature": 0.2,
           "topP": 1,
           "maxTokens": 260
         },
-        "text": "Using a measured tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Key takeaways:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Risks to watch:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces ultra-focused thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Key takeaways:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a measured tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Situation:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Complications:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Resolutions:** Embraces ultra-focused thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Situation:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.611,
-          "coverage": 1,
+          "richness": 0.618,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.64,
-          "overall": 0.868,
-          "readingTimeSeconds": 36
+          "clarity": 0.713,
+          "overall": 0.631,
+          "readingTimeSeconds": 34
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 61%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 62%."
       },
       {
-        "id": "tZfi0kCM5O",
+        "id": "ohE8_7pmP9",
         "parameters": {
-          "temperature": 0.2,
+          "temperature": 0.5,
           "topP": 1,
           "maxTokens": 260
         },
-        "text": "Using a measured tone, here is how the model interprets the prompt \"Demo prompt about LLM evaluation\".\n\n- **Key takeaways:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Risks to watch:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Next steps:** Embraces ultra-focused thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Key takeaways:** Embraces ultra-focused thinking to monitor tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
+        "text": "Using a critical tone, here is how the model interprets the prompt \"be a good boy\".\n\n- **Context:** Embraces ultra-focused thinking to amplify tightly scoped execution details while it references the underlying user intent directly.\n- **Analysis:** Embraces ultra-focused thinking to stress test tightly scoped execution details while it identifies supporting signals and guardrails.\n- **Recommendations:** Embraces systems level thinking to prototype tightly scoped execution details while it flags ambiguity so humans can intervene early.\n- **Context:** Embraces systems level thinking to monitor tightly scoped execution details while it connects tactical steps to measurable outcomes.\n\nGrounded mode favors structured, concise reasoning for confident execution.",
         "metrics": {
           "lengthEfficiency": 1,
-          "richness": 0.611,
-          "coverage": 1,
+          "richness": 0.637,
+          "coverage": 0,
           "structure": 1,
-          "clarity": 0.64,
-          "overall": 0.868,
-          "readingTimeSeconds": 36
+          "clarity": 0.676,
+          "overall": 0.629,
+          "readingTimeSeconds": 34
         },
-        "analysis": "Balances precise reasoning with structured formatting. Coverage 100% and vocab richness 61%."
+        "analysis": "Balances precise reasoning with structured formatting. Coverage 0% and vocab richness 64%."
       }
     ]
   }
