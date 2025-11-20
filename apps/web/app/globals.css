@@ -8,9 +8,24 @@
   --brand-dark: #21318f;
   --text-primary: #0f172a;
   --text-secondary: #4c5875;
+  --text-muted: #64748b;
+  --border-strong: #e2e8f0;
   --surface: #ffffff;
   --surface-alt: #f6f7fb;
   --font-satoshi: 'Satoshi';
+}
+
+body[data-theme='dark'] {
+  --brand-soft: #1b2952;
+  --brand-muted: #273a6a;
+  --text-primary: #e2e8f0;
+  --text-secondary: #cbd5f5;
+  --text-muted: #94a3b8;
+  --surface: #0c1224;
+  --surface-alt: #111b31;
+  --border-strong: #1f2d4d;
+  background: var(--surface);
+  color: var(--text-primary);
 }
 
 @theme inline {
@@ -29,4 +44,54 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+.theme-page {
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.theme-surface {
+  background: var(--surface);
+  color: var(--text-primary);
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.theme-surface-alt {
+  background: var(--surface-alt);
+  color: var(--text-primary);
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.theme-border {
+  border-color: var(--border-strong) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-primary-color {
+  color: var(--text-primary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease,
+    background-color 160ms ease, color 160ms ease;
+}
+
+.clickable:hover {
+  transform: translateY(-1px);
+}
+
+.card-hover:hover {
+  box-shadow: 0 20px 45px -30px rgba(60, 92, 204, 0.4);
+  border-color: var(--brand-muted) !important;
 }

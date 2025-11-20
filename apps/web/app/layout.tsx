@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "GenAI Labs | LLM Lab",
   description:
     "An interactive console for comparing LLM parameter sweeps, quality metrics, and exports.",
+  icons: {
+    icon: "/logo-brain.svg",
+  },
 };
 
 export default function RootLayout({
@@ -15,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased bg-white text-slate-900">
+      <body className="antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>
