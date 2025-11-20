@@ -28,6 +28,16 @@ const buildRangeValues = (range: NumericRangeInput) => {
   return values;
 };
 
+const formatDateTime = (value: string) =>
+  new Date(value).toLocaleString('en-US', { timeZone: 'UTC' });
+
+const formatTime = (value: string) =>
+  new Date(value).toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'UTC',
+  });
+
 export function ExperimentConsole() {
   const queryClient = useQueryClient();
   const [prompt, setPrompt] = useState(defaultPrompt);
@@ -294,7 +304,7 @@ export function ExperimentConsole() {
                 <MetricBadge label="Avg richness" value={avgRichness} />
                 <div className="rounded-2xl border border-dashed border-[#C8D2FF] bg-[var(--brand-soft)] px-4 py-3 text-sm text-secondary">
                   <p className="font-semibold text-primary-color">{selectedExperiment?.summary ?? 'Run an experiment to view stats.'}</p>
-                  <p>{selectedExperiment ? new Date(selectedExperiment.createdAt).toLocaleString() : ''}</p>
+                  <p>{selectedExperiment ? formatDateTime(selectedExperiment.createdAt) : ''}</p>
                 </div>
               </div>
             </div>
@@ -344,12 +354,7 @@ export function ExperimentConsole() {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-semibold">
-                          {new Date(experiment.createdAt).toLocaleTimeString([], {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </span>
+                        <span className="font-semibold">{formatTime(experiment.createdAt)}</span>
                         <span className="text-xs text-muted">
                           {experiment.responses.length} outputs
                         </span>
