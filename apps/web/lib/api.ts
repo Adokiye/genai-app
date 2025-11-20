@@ -17,7 +17,18 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     throw new Error(errorText || 'API error');
   }
 
-  return response.json();
+  const responseText = await response.text();
+
+  if (!responseText) {
+    return undefined as T;
+  }
+
+  try {
+    return JSON.parse(responseText) as T;
+  } catch (error) {
+    console.error('Invalid JSON response from API', error);
+    throw new Error('Invalid JSON response');
+  }
 }
 
 export const api = {
@@ -27,7 +38,7 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
-  deleteExperiment: (id: string) =>
+  deleteExperiment: (id: string): Promise<void> =>
     request(`/experiments/${id}`, {
       method: 'DELETE',
     }),

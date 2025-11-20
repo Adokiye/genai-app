@@ -21,9 +21,7 @@ export class MetricsService {
     const ratio = Math.min(charCount, targetLength) / targetLength;
     const lengthEfficiency = Number(ratio.toFixed(3));
 
-    const richness = Number(
-      (uniqueResponseTokens.size / words).toFixed(3),
-    );
+    const richness = Number((uniqueResponseTokens.size / words).toFixed(3));
 
     const overlapHits = promptTokens.filter((token) =>
       uniqueResponseTokens.has(token),
@@ -35,8 +33,7 @@ export class MetricsService {
     const structure = Number(
       Math.min(
         1,
-        (response.split('\n-').length - 1 + response.split('\n\n').length) /
-          6,
+        (response.split('\n-').length - 1 + response.split('\n\n').length) / 6,
       ).toFixed(3),
     );
 
@@ -54,9 +51,7 @@ export class MetricsService {
       ).toFixed(3),
     );
 
-    const readingTimeSeconds = Number(
-      ((words / 180) * 60).toFixed(1),
-    );
+    const readingTimeSeconds = Number(((words / 180) * 60).toFixed(1));
 
     return {
       lengthEfficiency,

@@ -1,10 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { nanoid } from 'nanoid';
-import {
-  Experiment,
-  ParameterSet,
-  ResponseVariant,
-} from './types';
+import { Experiment, ParameterSet, ResponseVariant } from './types';
 import {
   CreateExperimentDto,
   expandRange,
@@ -47,22 +43,26 @@ export class ExperimentsService {
 
     const responses: ResponseVariant[] = [];
 
-    temperatures.forEach((temperature) => {
-      topPs.forEach((topP) => {
+    for (const temperature of temperatures) {
+      for (const topP of topPs) {
         const params: ParameterSet = { temperature, topP, maxTokens };
-        for (let variantIndex = 0; variantIndex < variantsPerCombo; variantIndex++) {
-          const text = this.llm.generate(dto.prompt, params);
+        for (
+          let variantIndex = 0;
+          variantIndex < variantsPerCombo;
+          variantIndex++
+        ) {
+          const text = await this.llm.generate(dto.prompt, params);
           const metrics = this.metrics.evaluate(dto.prompt, text);
           responses.push({
             id: nanoid(10),
-            parameters: params,
+            parameters: { ...params },
             text,
             metrics,
             analysis: this.buildAnalysis(metrics, params),
           });
         }
-      });
-    });
+      }
+    }
 
     responses.sort((a, b) => b.metrics.overall - a.metrics.overall);
 
@@ -90,10 +90,15 @@ export class ExperimentsService {
     await this.repo.saveAll(experiments.filter((item) => item.id !== id));
   }
 
-  private buildAnalysis(metrics: ResponseVariant['metrics'], params: ParameterSet) {
+  private buildAnalysis(
+    metrics: ResponseVariant['metrics'],
+    params: ParameterSet,
+  ) {
     const mode = metrics.structure > 0.7 ? 'structured' : 'narrative';
     const tone = params.temperature > 0.6 ? 'imaginative' : 'precise';
-    return `Balances ${tone} reasoning with ${mode} formatting. Coverage ${(metrics.coverage * 100).toFixed(0)}% and vocab richness ${(metrics.richness * 100).toFixed(0)}%.`;
+    return `Balances ${tone} reasoning with ${mode} formatting. Coverage ${(
+      metrics.coverage * 100
+    ).toFixed(0)}% and vocab richness ${(metrics.richness * 100).toFixed(0)}%.`;
   }
 
   private buildExperimentSummary(responses: ResponseVariant[]) {
@@ -108,8 +113,10 @@ export class ExperimentsService {
 
     return `Best overall score ${(top.metrics.overall * 100).toFixed(
       1,
-    )}% using T=${top.parameters.temperature.toFixed(2)}, top_p=${top.parameters.topP.toFixed(
+    )}% using T=${top.parameters.temperature.toFixed(
       2,
-    )}. Average quality ${(avgOverall * 100).toFixed(1)}%.`;
+    )}, top_p=${top.parameters.topP.toFixed(2)}. Average quality ${(
+      avgOverall * 100
+    ).toFixed(1)}%.`;
   }
 }
