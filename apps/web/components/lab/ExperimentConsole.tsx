@@ -45,6 +45,7 @@ export function ExperimentConsole() {
   const [maxTokens, setMaxTokens] = useState(260);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
+  const [confirmExperiment, setConfirmExperiment] = useState<Experiment | null>(null);
 
   const experimentsQuery = useQuery({
     queryKey: ['experiments'],
@@ -81,6 +82,7 @@ export function ExperimentConsole() {
       }
       queryClient.invalidateQueries({ queryKey: ['experiments'] });
     },
+    onSettled: () => setConfirmExperiment(null),
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -122,6 +124,11 @@ export function ExperimentConsole() {
     URL.revokeObjectURL(url);
   };
 
+  const confirmDeletion = () => {
+    if (!confirmExperiment) return;
+    deleteExperiment.mutate(confirmExperiment.id);
+  };
+
   const comparisonRows = useMemo(() => {
     if (!selectedExperiment) return [];
     const map = new Map<string, ResponseVariant[]>();
@@ -155,23 +162,23 @@ export function ExperimentConsole() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen theme-page">
       <SiteHeader />
       <main className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12">
         <section className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_30px_80px_-60px_rgba(60,92,204,0.8)]">
+          <div className="rounded-3xl border theme-border theme-surface p-6 shadow-[0_30px_80px_-60px_rgba(60,92,204,0.8)]">
             <p className="text-xs uppercase tracking-[0.3em] text-[#3C5CCC]">
               LLM Lab Mission
             </p>
-            <h1 className="mt-3 text-3xl font-semibold leading-snug text-slate-900">
+            <h1 className="mt-3 text-3xl font-semibold leading-snug text-primary-color">
               Dial in temperatures, compare responses, and export a defensible LLM lab report.
             </h1>
-            <p className="mt-4 text-base text-slate-600">
+            <p className="mt-4 text-base text-secondary">
               Generate multiple completions from the same prompt across a temperature and top_p grid.
               We score each variant across five heuristics (length efficiency, coverage, richness,
               structure, and clarity) to surface the most reliable configuration.
             </p>
-            <ul className="mt-4 grid gap-3 text-sm text-slate-600 sm:grid-cols-2">
+            <ul className="mt-4 grid gap-3 text-sm text-secondary sm:grid-cols-2">
               <li className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-[#3C5CCC]"></span>
                 Adjustable parameter ranges & response counts
@@ -191,18 +198,18 @@ export function ExperimentConsole() {
             </ul>
           </div>
           <form
-            className="rounded-3xl border border-slate-200 bg-[#F8FAFF] p-6 flex flex-col gap-4"
+            className="rounded-3xl border theme-border theme-surface-alt p-6 flex flex-col gap-4"
             onSubmit={handleSubmit}
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-slate-900">Experiment design</h2>
-              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">
+              <h2 className="text-xl font-semibold text-primary-color">Experiment design</h2>
+              <span className="text-xs uppercase tracking-[0.3em] text-muted">
                 Step 01
               </span>
             </div>
-            <label className="text-sm font-medium text-slate-700">Prompt</label>
+            <label className="text-sm font-medium text-primary-color">Prompt</label>
             <textarea
-              className="min-h-[140px] rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-700 outline-none focus:border-[#3C5CCC]"
+              className="min-h-[140px] rounded-2xl border theme-border theme-surface p-4 text-sm text-primary-color outline-none focus:border-[#3C5CCC]"
               value={prompt}
               onChange={(event) => setPrompt(event.target.value)}
               required
@@ -229,7 +236,7 @@ export function ExperimentConsole() {
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="text-sm font-medium text-slate-700">
+                <label className="text-sm font-medium text-primary-color">
                   Variants per combo ({variantsPerCombo})
                 </label>
                 <input
@@ -242,7 +249,7 @@ export function ExperimentConsole() {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">
+                <label className="text-sm font-medium text-primary-color">
                   Max tokens ({maxTokens})
                 </label>
                 <input
@@ -256,27 +263,27 @@ export function ExperimentConsole() {
                 />
               </div>
             </div>
-            <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+            <div className="flex flex-wrap gap-3 text-xs text-muted">
               <ParameterChip label="Temps" values={buildRangeValues(temperatureRange)} />
               <ParameterChip label="Top_p" values={buildRangeValues(topPRange)} />
-              <span className="rounded-full bg-white px-3 py-1 font-semibold text-slate-600">
+              <span className="rounded-full theme-surface px-3 py-1 font-semibold text-secondary">
                 {variantsPerCombo} responses per combo
               </span>
             </div>
             <button
               type="submit"
               disabled={createExperiment.isPending}
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-[#3C5CCC] px-6 py-3 text-white font-semibold shadow-lg shadow-[#3C5CCC]/30 disabled:opacity-60"
+              className="mt-2 inline-flex items-center justify-center rounded-full bg-[#3C5CCC] px-6 py-3 text-white font-semibold shadow-lg shadow-[#3C5CCC]/30 disabled:opacity-60 clickable hover:shadow-xl"
             >
               {createExperiment.isPending ? 'Generating...' : 'Run Lab Sweep'}
             </button>
-            {status && <p className="text-sm text-slate-600">{status}</p>}
+            {status && <p className="text-sm text-secondary">{status}</p>}
           </form>
         </section>
 
         <section className="grid gap-8 lg:grid-cols-[minmax(0,2.5fr)_minmax(0,1.2fr)]">
           <div className="flex flex-col gap-6">
-            <div className="rounded-3xl border border-slate-200 bg-white p-6">
+            <div className="rounded-3xl border theme-border theme-surface p-6">
               <div className="flex flex-wrap items-center gap-4">
                 <MetricBadge
                   label="Top score"
@@ -285,8 +292,8 @@ export function ExperimentConsole() {
                 />
                 <MetricBadge label="Avg coverage" value={avgCoverage} />
                 <MetricBadge label="Avg richness" value={avgRichness} />
-                <div className="rounded-2xl border border-dashed border-[#C8D2FF] bg-[#EFF2FF] px-4 py-3 text-sm text-slate-600">
-                  <p className="font-semibold text-slate-900">{selectedExperiment?.summary ?? 'Run an experiment to view stats.'}</p>
+                <div className="rounded-2xl border border-dashed border-[#C8D2FF] bg-[var(--brand-soft)] px-4 py-3 text-sm text-secondary">
+                  <p className="font-semibold text-primary-color">{selectedExperiment?.summary ?? 'Run an experiment to view stats.'}</p>
                   <p>{selectedExperiment ? new Date(selectedExperiment.createdAt).toLocaleString() : ''}</p>
                 </div>
               </div>
@@ -301,19 +308,19 @@ export function ExperimentConsole() {
                   />
                 ))
               ) : (
-                <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-12 text-center text-slate-500">
+                <div className="rounded-3xl border border-dashed theme-border theme-surface p-12 text-center text-muted">
                   Submit an experiment to see side-by-side completions.
                 </div>
               )}
             </div>
           </div>
           <aside className="flex flex-col gap-6">
-            <div className="rounded-3xl border border-slate-200 bg-white p-5">
+            <div className="rounded-3xl border theme-border theme-surface p-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-slate-900">Experiment history</h3>
+                <h3 className="text-lg font-semibold text-primary-color">Experiment history</h3>
                 <button
                   onClick={exportHistory}
-                  className="text-xs font-semibold text-[#3C5CCC]"
+                  className="text-xs font-semibold text-[#3C5CCC] clickable hover:underline"
                   disabled={!experiments.length}
                 >
                   Export all
@@ -330,10 +337,10 @@ export function ExperimentConsole() {
                       onKeyDown={(event) => {
                         if (event.key === 'Enter') setSelectedId(experiment.id);
                       }}
-                      className={`rounded-2xl border px-4 py-3 text-left text-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3C5CCC] ${
+                      className={`rounded-2xl border px-4 py-3 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3C5CCC] clickable card-hover theme-border theme-surface ${
                         selectedExperiment?.id === experiment.id
-                          ? 'border-[#3C5CCC] bg-[#EFF2FF] text-[#1f2c5c]'
-                          : 'border-slate-200 hover:border-[#3C5CCC]'
+                          ? 'border-[#3C5CCC] bg-[var(--brand-soft)] text-primary-color'
+                          : 'hover:border-[#3C5CCC]'
                       }`}
                     >
                       <div className="flex items-center justify-between">
@@ -343,12 +350,12 @@ export function ExperimentConsole() {
                             minute: '2-digit',
                           })}
                         </span>
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-muted">
                           {experiment.responses.length} outputs
                         </span>
                       </div>
-                      <p className="text-xs text-slate-600">{experiment.summary}</p>
-                      <div className="mt-2 flex items-center justify-between text-xs text-slate-500">
+                      <p className="text-xs text-secondary">{experiment.summary}</p>
+                      <div className="mt-2 flex items-center justify-between text-xs text-muted">
                         <span>T {experiment.temperatures.join(', ')}</span>
                         <span>top_p {experiment.topPs.join(', ')}</span>
                       </div>
@@ -356,27 +363,27 @@ export function ExperimentConsole() {
                         type="button"
                         onClick={(event) => {
                           event.stopPropagation();
-                          deleteExperiment.mutate(experiment.id);
+                          setConfirmExperiment(experiment);
                         }}
-                        className="mt-2 text-xs text-rose-500"
+                        className="mt-2 text-xs text-rose-500 clickable hover:underline"
                       >
                         Remove
                       </button>
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-slate-500">No experiments yet.</p>
+                  <p className="text-sm text-muted">No experiments yet.</p>
                 )}
               </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-white p-5">
+            <div className="rounded-3xl border theme-border theme-surface p-5">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-slate-900">
+                <h3 className="text-lg font-semibold text-primary-color">
                   Parameter comparison
                 </h3>
                 <button
                   onClick={() => exportExperiment(selectedExperiment)}
-                  className="text-xs font-semibold text-[#3C5CCC]"
+                  className="text-xs font-semibold text-[#3C5CCC] clickable hover:underline"
                   disabled={!selectedExperiment}
                 >
                   Export run
@@ -387,27 +394,27 @@ export function ExperimentConsole() {
                   comparisonRows.map((row) => (
                     <div
                       key={row.combo}
-                      className="rounded-2xl border border-slate-200 bg-[#F8FAFF] px-4 py-3 text-sm text-slate-600"
+                      className="rounded-2xl border theme-border theme-surface-alt px-4 py-3 text-sm text-secondary"
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-semibold text-slate-900">{row.combo}</p>
-                        <p className="text-xs text-slate-500">{row.count} variants</p>
+                        <p className="font-semibold text-primary-color">{row.combo}</p>
+                        <p className="text-xs text-muted">{row.count} variants</p>
                       </div>
                       <p>Best: {(row.best.metrics.overall * 100).toFixed(1)}% · Avg {(row.avg * 100).toFixed(1)}%</p>
-                      <p className="text-xs text-slate-500">{row.best.analysis}</p>
+                      <p className="text-xs text-muted">{row.best.analysis}</p>
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-slate-500">Run an experiment to populate this board.</p>
+                  <p className="text-sm text-muted">Run an experiment to populate this board.</p>
                 )}
               </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-white p-5">
-              <h3 className="text-lg font-semibold text-slate-900">Metric heuristics</h3>
-              <p className="mt-2 text-sm text-slate-600">
+            <div className="rounded-3xl border theme-border theme-surface p-5">
+              <h3 className="text-lg font-semibold text-primary-color">Metric heuristics</h3>
+              <p className="mt-2 text-sm text-secondary">
                 We score every completion without extra API calls:
               </p>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600">
+              <ul className="mt-3 space-y-2 text-sm text-secondary">
                 <li>
                   <strong>Length efficiency:</strong> closeness to an adaptive token target derived from prompt size.
                 </li>
@@ -429,6 +436,34 @@ export function ExperimentConsole() {
         </section>
       </main>
       <SiteFooter />
+      {confirmExperiment && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+          <div className="w-full max-w-md rounded-2xl border theme-border theme-surface p-6 shadow-2xl">
+            <h4 className="text-lg font-semibold text-primary-color">Remove experiment?</h4>
+            <p className="mt-2 text-sm text-secondary">
+              Are you sure you want to remove “{confirmExperiment.summary}”? This will delete the
+              experiment and its history.
+            </p>
+            <div className="mt-6 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmExperiment(null)}
+                className="rounded-full border theme-border px-4 py-2 text-sm font-semibold text-secondary clickable hover:bg-[var(--surface-alt)]"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDeletion}
+                className="rounded-full bg-rose-600 px-4 py-2 text-sm font-semibold text-white shadow-lg clickable hover:bg-rose-500 disabled:opacity-60"
+                disabled={deleteExperiment.isPending}
+              >
+                {deleteExperiment.isPending ? 'Removing...' : 'Remove'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -451,11 +486,11 @@ function RangeControl({
   step: number;
 }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+    <div className="rounded-2xl border theme-border theme-surface p-4">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-semibold text-slate-900">{title}</p>
-          <p className="text-xs text-slate-500">{description}</p>
+          <p className="text-sm font-semibold text-primary-color">{title}</p>
+          <p className="text-xs text-muted">{description}</p>
         </div>
         <span className="text-xs font-semibold text-[#3C5CCC]">
           {value.min.toFixed(2)}–{value.max.toFixed(2)}
@@ -463,7 +498,7 @@ function RangeControl({
       </div>
       <div className="mt-3 grid grid-cols-3 gap-3 text-xs">
         {(['min', 'max', 'step'] as const).map((key) => (
-          <label key={key} className="flex flex-col gap-1 text-slate-600">
+          <label key={key} className="flex flex-col gap-1 text-secondary">
             <span className="font-medium capitalize">{key}</span>
             <input
               type="number"
@@ -477,7 +512,7 @@ function RangeControl({
                   [key]: Number(event.target.value),
                 })
               }
-              className="rounded-xl border border-slate-200 px-3 py-2 text-sm text-slate-700"
+              className="rounded-xl border theme-border theme-surface px-3 py-2 text-sm text-primary-color"
             />
           </label>
         ))}
@@ -488,7 +523,7 @@ function RangeControl({
 
 function ParameterChip({ label, values }: { label: string; values: number[] }) {
   return (
-    <span className="rounded-full border border-slate-200 bg-white px-4 py-1 text-xs font-semibold text-slate-600">
+    <span className="rounded-full border theme-border theme-surface px-4 py-1 text-xs font-semibold text-secondary">
       {label}: {values.join(', ')}
     </span>
   );
