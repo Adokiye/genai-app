@@ -1,6 +1,5 @@
 # Root ignores
 node_modules/
-pnpm-lock.yaml
 
 # Environment files
 .env
