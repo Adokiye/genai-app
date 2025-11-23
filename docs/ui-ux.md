@@ -1,26 +1,27 @@
 # UI & UX Design Notes
 
 ## Visual language
-- **Palette**: the console leans on a three-step indigo ramp (`#3C5CCC`, `#9AA8F8`, `#C8D2FF`) for emphasis plus neutral slate grays for body copy. The same hues appear in metric badges and bullet accents so the lab feels cohesive.
-- **Typography**: Satoshi-inspired sans typography (declared in `app/layout.tsx`) keeps dense experiment data legible. Headers use tighter leading and uppercase tracking to mimic lab instruments, while body text stays at 16–18px for readability.
-- **Surfaces**: cards combine white backgrounds, 24–32px radii, and long-shadow gradients (`shadow-[0_30px_80px_-60px_rgba(60,92,204,0.8)]`) to separate interactive panels without overwhelming the page.
+- **Palette**: an indigo ramp (`#3C5CCC`, `#9AA8F8`, `#C8D2FF`) keeps highlights friendly, with slate neutrals for copy so eyes can rest. Error states lean coral (`#FF7A76`) to gently say “hey, fix this” without panic.
+- **Typography**: a Satoshi-inspired sans declared in `app/layout.tsx`. Headlines use tighter leading and uppercase tracking for a lab feel; body text sits at 16–18px so the experience never feels squinty.
+- **Surfaces**: white cards with 24–32px radii and long-shadow gradients (`shadow-[0_30px_80px_-60px_rgba(60,92,204,0.8)]`) separate interactive panels while keeping the page calm and airy.
 
 ## Layout rationale
-1. **Mission hero** (left column) frames the lab goals and heuristics so new visitors understand the workflow before touching controls.
-2. **Experiment design form** (right column) groups related fields—prompt, temperature range, top_p range, response density, and token budget—into stacked cards with inline helper text. A single CTA keeps focus on running the sweep.
-3. **Summary and comparison rail** directly below the fold visualizes averages (coverage, richness) and the best scoring combo, encouraging rapid iteration.
-4. **Response grid** shows cards sorted by score. Each card repeats the metric badges and includes a quick analysis sentence for scanning.
-5. **History sidebar** (desktop breakpoint) lists previous experiments with delete/export controls, mirroring the data model.
+1. **Mission hero** (left column) frames goals and heuristics so first-time visitors understand the workflow before touching controls.
+2. **Experiment form** (right column) groups prompt, temperature range, top_p range, variant count, and token budget into stacked cards with helper copy. A single CTA keeps the focus on running the sweep.
+3. **Summary rail** below the fold visualizes averages (coverage, richness) and highlights the best scoring combo to encourage quick iteration.
+4. **Response grid** shows cards sorted by score with metric badges, parameter chips, and a short analysis sentence for scanning.
+5. **History sidebar** (desktop) lists previous experiments with delete/export controls, mirroring the persisted data model and reminding folks that nothing disappears on refresh.
 
 ## Interaction design
-- **React Query status messaging**: `status` text beneath the form provides immediate feedback (“Generating parameter sweep…” or errors) without modals.
-- **Exports**: JSON export buttons live both in the SiteHeader (global history) and on each experiment summary (per-run download) so power users can grab artifacts regardless of scroll position.
-- **Selection model**: clicking an experiment in the history rail updates `selectedId`, rerendering the summary and response grid. No additional routing keeps the experience fast.
-- **Responsive behavior**: grids collapse to single columns below 1024px, while typography and spacing scale down via Tailwind utility classes baked into each component.
+- **Status feedback**: React Query status text beneath the form confirms mutations and errors without modals.
+- **Exports**: JSON exports live in both `SiteHeader` (global history) and per-experiment summaries so power users can grab artifacts anywhere on the page.
+- **Selection model**: clicking a history item updates `selectedId`, rerendering the summary and response grid without extra routing.
+- **Responsive behavior**: grids collapse to single columns below 1024px; spacing scales down via Tailwind utilities already embedded in each component.
+- **Accessibility**: focus rings stay obvious on all CTA buttons; color choices meet 4.5:1 contrast on text and 3:1 on UI chrome so no one has to squint or guess.
 
-## User journey
-1. Land on the mission hero, skim the heuristics, and trust the deterministic setup.
-2. Paste or adjust the default prompt, tweak temperature and top_p ranges via min/max/step controls, and choose how many variants per combo to compare.
-3. Submit the form; watch status text confirm generation and scroll to the comparison rail once the mutation resolves.
-4. Inspect the best combo summary, skim average coverage/richness stats, and open the detailed response cards to read specific completions.
-5. Export the winning experiment or the full history, optionally delete noisy runs, and repeat with a refined prompt.
+## User journey (humanized)
+1. Land on the mission hero, skim heuristics, and trust the deterministic setup.
+2. Paste or tweak the prompt, adjust temperature/top_p ranges with min/max/step controls, and choose how many variants per combo feel manageable.
+3. Submit the form; watch the status line confirm generation and follow the page down to the comparison rail when the mutation resolves.
+4. Skim the best combo summary, scan average coverage/richness stats, and dip into response cards to read the tone or structure.
+5. Export the winning experiment or full history, optionally prune noisy runs, and loop with a refined prompt informed by what felt right. The goal is to let someone feel accompanied, not lectured, through the experiment loop.

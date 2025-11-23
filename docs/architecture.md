@@ -1,36 +1,36 @@
 # Architecture & Data Flow
 
 ## System overview
-GenAI Labs is a pnpm workspace that hosts two runtimes:
-- **apps/web** — a Next.js App Router client that renders the lab UI, orchestrates experiments with TanStack Query, and exports JSON packets directly from the browser.
-- **apps/api** — a NestJS service that brokers OpenAI Chat Completions requests, evaluates the outputs with deterministic heuristics, and persists the entire experiment log in `apps/api/data/experiments.json` for versioned audits.
+GenAI Labs is a pnpm workspace with two teammates working side by side:
+- **apps/web** — the Next.js App Router client that listens to the user, gathers experiment knobs, calls the API through typed helpers, and paints the results with TanStack Query state so nothing feels brittle.
+- **apps/api** — the NestJS service that tidies the request, chats with OpenAI (or a mocked LLM on slow days), computes heuristics, and tucks runs into `apps/api/data/experiments.json` so we keep a paper trail.
 
-A single `.env` (or deployment secret store) wires the two via `NEXT_PUBLIC_API_URL` on the client and `WEB_APP_URL` on the API for CORS. Both share the workspace TypeScript config and scripts defined at the repository root.
+A single `.env` (or platform secrets) keeps them on the same wavelength: `NEXT_PUBLIC_API_URL` for the client and `WEB_APP_URL` for the API’s CORS. Both share TypeScript configs and pnpm scripts to reduce busywork.
 
-## Request lifecycle
-1. The user submits an experiment design from `apps/web/app/page.tsx`, which serializes the prompt, temperature/top_p ranges, variants per combo, and max tokens.
-2. `lib/api.ts` posts the payload to `POST /experiments` exposed by the Nest controller.
-3. `ExperimentsService` iterates over every parameter combination, asks `LlmService` to call OpenAI for text, feeds each response into `MetricsService`, and attaches a human readable analysis string.
-4. The repository writes the new experiment to the JSON data store (newest first) and returns the fully sorted result set.
-5. React Query invalidates `['experiments']`, refreshing the timeline so the UI can highlight the top scoring response and show aggregate insights per parameter combo.
+## Data flow
+1. The user configures prompt, ranges, and variant counts in `apps/web/app/page.tsx`.
+2. `lib/api.ts` posts the payload to `POST /experiments` with an idempotent request body (prompt, ranges, variant count, token budget).
+3. `ExperimentsService` expands ranges, asks `LlmService` for each combination, and hands completions to `MetricsService` for scoring and analysis text.
+4. Results are written to `experiments.json` (latest first) and returned to the client.
+5. React Query invalidates `['experiments']`, refreshing the summary, response grid, and history rail without manual state wiring.
 
-This flow keeps the client stateless: every render derives its data from the API and the persisted history, so refreshing the browser never loses experiments.
+This keeps the client stateless: a refresh just asks the API what happened, and the user still sees their past experiments without any heroics.
 
 ## REST API surface
 | Endpoint | Method | Description |
 | --- | --- | --- |
-| `/health` | GET | Returns service metadata and the status message from `AppService`.
-| `/experiments` | GET | Lists experiments ordered from newest to oldest so the UI can build the history rail.
-| `/experiments/:id` | GET | Fetches a single experiment (used for deep links and QA tooling).
-| `/experiments` | POST | Generates a full parameter sweep, scores variants, persists the run, and returns the complete object.
-| `/experiments/:id` | DELETE | Removes an experiment so users can curate the lab log without manually editing JSON files.
+| `/health` | GET | Returns service metadata and the status message from `AppService` for uptime checks. |
+| `/experiments` | GET | Lists experiments ordered from newest to oldest for the history rail. |
+| `/experiments/:id` | GET | Fetches a single experiment for deep links or QA. |
+| `/experiments` | POST | Generates the parameter sweep, scores variants, persists the run, and returns the full experiment payload. |
+| `/experiments/:id` | DELETE | Removes an experiment so the history can be curated without file edits. |
 
 ## Component structure (apps/web)
 ```
 app/
   layout.tsx      # typography, metadata, providers (QueryClient, font CSS)
   page.tsx        # entire experiment workflow (form, summaries, response grid)
-  providers.tsx   # isolates all React providers to keep layout clean
+  providers.tsx   # isolates React providers to keep layout clean
 components/
   layout/
     SiteHeader.tsx  # brand lockup + export controls + CTA link
@@ -44,7 +44,8 @@ lib/
 ```
 
 ## Key architectural decisions
-- **Native OpenAI integration**: the API manages authentication, retries, and parameter translation for OpenAI so the UI only has to send prompts once.
-- **File-based persistence**: storing `experiments.json` alongside the codebase keeps deployments simple (no database provisioning) and allows seed data via git.
-- **Range expansion on the server**: the API normalizes ranges before iterating them, which means the client can stay lightweight and trust the backend for validation and clamping.
-- **React Query everywhere**: caching and mutation utilities centralize network logic, simplify optimistic updates, and allow easy invalidation when experiments change.
+- **Server-side range expansion** keeps the client light and ensures clamping/validation happens once before fan-out.
+- **File-based persistence** in `experiments.json` favors portability and easy seeding; a database can wait until we truly feel concurrency.
+- **React Query-first data fetching** centralizes mutations, retries, and cache invalidation so UI components stay presentational and easy to reason about.
+- **Deterministic heuristics** in `MetricsService` avoid second-pass LLM calls, keeping cost predictable and making exports reproducible.
+- **API/Client contract via DTOs**: shared typings reduce drift between Nest controllers and the Next.js client during iteration, and future we is grateful for the shared truth.
