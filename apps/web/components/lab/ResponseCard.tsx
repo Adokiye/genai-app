@@ -20,13 +20,13 @@ export function ResponseCard({
     >
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div>
-          <p className="text-sm text-muted">Temperature · Top_p</p>
+          <p className="text-sm text-muted">Sampling settings</p>
           <p className="text-lg font-semibold text-primary-color">
             {parameters.temperature.toFixed(2)} / {parameters.topP.toFixed(2)}
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm text-muted">Overall quality</p>
+          <p className="text-sm text-muted">Overall score</p>
           <p className="text-2xl font-semibold text-primary-color">
             {(metrics.overall * 100).toFixed(1)}%
           </p>
@@ -36,13 +36,13 @@ export function ResponseCard({
         {response.text}
       </p>
       <div className="grid grid-cols-2 gap-3 text-xs text-secondary">
-        <Metric label="Length" value={metrics.lengthEfficiency} />
+        <Metric label="Length fit" value={metrics.lengthEfficiency} />
         <Metric label="Coverage" value={metrics.coverage} />
         <Metric label="Richness" value={metrics.richness} />
         <Metric label="Structure" value={metrics.structure} />
         <Metric label="Clarity" value={metrics.clarity} />
         <Metric
-          label="Read time"
+          label="Estimated read time"
           value={`${metrics.readingTimeSeconds}s`}
           isRaw
         />
