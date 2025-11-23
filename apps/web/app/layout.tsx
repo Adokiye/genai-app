@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "GenAI Labs | LLM Lab",
   description:
-    "An interactive console for comparing LLM parameter sweeps, quality metrics, and exports.",
+    "A friendly console for trying LLM parameter sweeps, scoring quality, and exporting results.",
   icons: {
     icon: "/logo-brain.svg",
   },

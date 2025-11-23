@@ -10,7 +10,7 @@ export function SiteHeader() {
           <div className="flex flex-col justify-center">
             <Image src="/logo-text.svg" alt="GenAI Labs" width={160} height={32} />
             <p className="text-sm text-muted">
-              Parameter playground for thoughtful LLM experimentation
+              A playground for thoughtful LLM tinkering
             </p>
           </div>
         </div>
